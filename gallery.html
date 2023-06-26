@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery 연습</title>
+    <style>
+        div.item:nth-child(1) {
+            background-color: blueviolet;
+        }
+        div.item:nth-child(2) {
+            background-color: rosybrown;
+        }
+        div.item:nth-child(3) {
+            background-color: burlywood;
+        }
+    </style>
+
+    <script src="../js/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            // data-role="slider" 인 요소객체의 data-width 속성의 값을 가져와서 변수에 대입 
+            var width = $("[data-role='slider']").attr("data-width");
+            // data-role="slider" 인 요소객체의 data-height 속성의 값을 가져와서 변수에 대입 
+            var height = $("[data-role='slider']").attr("data-height");
+
+            // data-role="slider" 인 요소객체의 하위에 있는 div 중에 class가 item인 요소들의 개수를 변수에 대입
+            var count = $("[data-role='slider'] div.item").length;
+
+            $("[data-role='slider']").css({
+                position: 'relative',
+                overflow: 'hidden',
+                width: width,
+                height: height
+            }).find(".container").css({
+                position: 'absolute',
+                width: count * width,
+                overflow: 'hidden'
+            }).find('.item').css({
+                width: width,
+                height: height,
+                float: 'left'
+            });
+
+            // 현재페이지를 저장하는 변수 선언
+            var currentPage = 0
+            // 함수(페이지변경 기능)를 선언해서 변수에 대입
+            var changePage = function () {
+                $("[data-role='slider'] > .container").animate({
+                    left: -currentPage * width
+                }, 500);
+            };
+
+            // event listener (이벤트 발생을 감시하다가 처리를 한다.)
+
+            $('#leftBtn').click(function () {
+                if (currentPage > 0) {
+                    currentPage = currentPage - 1;
+                    changePage();
+                };
+            });
+
+            $('#rightBtn').click(function () {
+                if (currentPage < count - 1) {
+                    currentPage = currentPage + 1;
+                    changePage();
+                };
+            });
+        });
+    </script>
+</head>
+<body>
+    <div data-role="slider" data-width="500" data-height="300">
+        <div class="container">
+            <div class="item">
+                <h1>Lorem ipsum dolor sit amet.</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ab quae adipisci. Minus dolore officiis vel sapiente molestiae provident eius, obcaecati odio aliquam reiciendis atque eos amet asperiores mollitia incidunt!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ab quae adipisci. Minus dolore officiis vel sapiente molestiae provident eius, obcaecati odio aliquam reiciendis atque eos amet asperiores mollitia incidunt!
+                </p>
+            </div>
+            <div class="item">
+                <h1>Lorem ipsum dolor sit amet.</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ab quae adipisci. Minus dolore officiis vel sapiente molestiae provident eius, obcaecati odio aliquam reiciendis atque eos amet asperiores mollitia incidunt!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ab quae adipisci. Minus dolore officiis vel sapiente molestiae provident eius, obcaecati odio aliquam reiciendis atque eos amet asperiores mollitia incidunt!
+                </p>
+            </div>
+            <div class="item">
+                <h1>Lorem ipsum dolor sit amet.</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ab quae adipisci. Minus dolore officiis vel sapiente molestiae provident eius, obcaecati odio aliquam reiciendis atque eos amet asperiores mollitia incidunt!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ab quae adipisci. Minus dolore officiis vel sapiente molestiae provident eius, obcaecati odio aliquam reiciendis atque eos amet asperiores mollitia incidunt!
+                </p>
+            </div>
+        </div>
+    </div>
+    <button id="leftBtn">←</button>
+    <button id="rightBtn">→</button>
+</body>
+</html>
